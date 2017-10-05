@@ -122,7 +122,7 @@ function buy(m)
 	
 	data[name] = data[name]-roleCost
 	m.member.addRole(role, "Bot")
-	m.channel.send(m.author + " You have bought the Halloween 2017 Role! Keep trying to earn candy! :sparkles: ");
+	m.channel.send(m.author + " You have bought the " + roleName + " Role! Keep trying to earn candy! :sparkles: ");
 	saveData();
 }
 
