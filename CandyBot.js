@@ -16,10 +16,11 @@ const roleCost =	//COST OF ROLE
 const serverName =	//SERVER NAME
 const roleName =	//ROLE NAME
 const activeChannels = 	//ARRAY OF CHANNELS THE BOT IS ACTIVE IN
+const discordID =	//DISCORD TOKEN
 
 ///////////////////////////////////////////////////////
 
-client.login("MzYzNDM2MzUwMDA5MTE0NjQ0.DLXOrQ.JaiBzYwE5wXktqxR5N7miRJ41RU");
+client.login(discordID);
 
 client.on("ready", () => 
 {
