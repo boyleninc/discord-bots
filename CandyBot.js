@@ -1,24 +1,54 @@
-const Discord = require("discord.js");
-const fs = require("fs");
-var data = require("./data.json");
-const client = new Discord.Client();
+///////////////////////////////////////////////////////////////////////////
+//                                CANDYBOT                               //
+///////////////////////////////////////////////////////////////////////////
 
-readyForPicking = []
-pickid = []
-const candyMsg = ":candy::candy::candy::candy::candy::candy::candy:\n**Random Candy Appeared!**\n_Type .pick to pick them up!_"
+///////////////////////////////////////////////////////////////////////////
+// Holiday Event Bot for Discord                                         //
+// By axc450 (Github) / Super#0100 (Discord)                             //
+//                                                                       //
+// CandyBot spawns candy based off sent messages.						 //
+// Users can collect the candy and use it to buy an event discord role.  //
+///////////////////////////////////////////////////////////////////////////
 
-///////////////////////  OPTIONS  /////////////////////
+/////////////////////////////////////////////
+// Commands:                               //
+//                                         //
+// .help	Shows the CandyBot help menu   //
+// .pick	Picks up candy when it spawns  //
+// .candy	Shows the users current candy  //
+// .lb		Shows the leaderboard          //
+// .buy		Attempts to buy the event role //
+/////////////////////////////////////////////
 
-const chance =		//CHANCE TO SPAWN
-const candyMin = 	//MINIMUM CANDY
-const candyMax =	//MAXIMUM CANDY
-const roleCost =	//COST OF ROLE
-const serverName =	//SERVER NAME
-const roleName =	//ROLE NAME
-const activeChannels = 	//ARRAY OF CHANNELS THE BOT IS ACTIVE IN
-const discordID =	//DISCORD TOKEN
+///////////
+// Setup //
+///////////
 
-///////////////////////////////////////////////////////
+const Discord		= require("discord.js");
+const fs			= require("fs");
+const client		= new Discord.Client();
+var data			= require("./data.json");
+var readyForPicking = []
+var pickid			= []
+
+//////////////////////////////
+// Bot Options - Edit These //
+//////////////////////////////
+
+const chance			=	0.5		//Chance to spawn a candy (0 = 0%, 1 = 100%)
+const candyMin			=	1		//Minimum candy to drop
+const candyMax			=	10		//Maximum candy to drop
+const roleCost			=	20		//Cost of the special discord role
+const roleName			=	"My Role"		//Name of the special discord role
+const serverName		=	"My Server"		//Name of your server
+const activeChannels	=	["Channel One", "Channel 2"]		//Text channels the bot is active in
+
+const discordID			=	"???????????????????????????????????????????????????????????"	//Discord Bot API Token
+const candyMsg			=	":candy::candy::candy::candy::candy::candy::candy:\n**Random Candy Appeared!**\n_Type .pick to pick them up!_"		//Bot message on candy proc
+
+////////////////////////
+// Code - DO NOT EDIT //
+////////////////////////
 
 client.login(discordID);
 
