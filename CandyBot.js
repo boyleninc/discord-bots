@@ -6,18 +6,18 @@
 // Holiday Event Bot for Discord                                         //
 // By axc450 (Github) / Super#0100 (Discord)                             //
 //                                                                       //
-// CandyBot spawns candy based off sent messages.						 //
+// CandyBot spawns candy based off sent messages.                        //
 // Users can collect the candy and use it to buy an event discord role.  //
 ///////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////
 // Commands:                               //
 //                                         //
-// .help	Shows the CandyBot help menu   //
-// .pick	Picks up candy when it spawns  //
-// .candy	Shows the users current candy  //
-// .lb		Shows the leaderboard          //
-// .buy		Attempts to buy the event role //
+// .help    Shows the CandyBot help menu   //
+// .pick    Picks up candy when it spawns  //
+// .candy   Shows the users current candy  //
+// .lb      Shows the leaderboard          //
+// .buy     Attempts to buy the event role //
 /////////////////////////////////////////////
 
 ///////////
