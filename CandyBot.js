@@ -36,7 +36,7 @@ var pickid              = []
 //////////////////////////////
 
 const chance            = 0.5              //Chance to spawn a candy (0 = 0%, 1 = 100%)
-const candyMin          = 1	               //Minimum candy to drop
+const candyMin          = 1                //Minimum candy to drop
 const candyMax          = 10               //Maximum candy to drop
 const roleCost          = 20               //Cost of the special discord role
 const roleName          = "My Role"        //Name of the special discord role
