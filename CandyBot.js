@@ -35,16 +35,16 @@ var pickid              = []
 // Bot Options - Edit These //
 //////////////////////////////
 
-const chance            =	0.5		//Chance to spawn a candy (0 = 0%, 1 = 100%)
-const candyMin          =	1		//Minimum candy to drop
-const candyMax          =	10		//Maximum candy to drop
-const roleCost          =	20		//Cost of the special discord role
-const roleName          =	"My Role"		//Name of the special discord role
-const serverName        =	"My Server"		//Name of your server
-const activeChannels    =	["Channel One", "Channel 2"]		//Text channels the bot is active in
+const chance            = 0.5              //Chance to spawn a candy (0 = 0%, 1 = 100%)
+const candyMin          = 1	               //Minimum candy to drop
+const candyMax          = 10               //Maximum candy to drop
+const roleCost          = 20               //Cost of the special discord role
+const roleName          = "My Role"        //Name of the special discord role
+const serverName        = "My Server"      //Name of your server
+const activeChannels    = ["Channel 1", "Channel 2"]    //Text channels the bot is active in
 
-const discordID         =	"???????????????????????????????????????????????????????????"	//Discord Bot API Token
-const candyMsg          =	":candy::candy::candy::candy::candy::candy::candy:\n**Random Candy Appeared!**\n_Type .pick to pick them up!_"		//Bot message on candy proc
+const discordID         = "???????????????????????????????????????????????????????????"    //Discord Bot API Token
+const candyMsg          = ":candy::candy::candy::candy::candy::candy::candy:\n**Random Candy Appeared!**\n_Type .pick to pick them up!_"    //Bot message on candy proc
 
 ////////////////////////
 // Code - DO NOT EDIT //
