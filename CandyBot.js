@@ -24,12 +24,12 @@
 // Setup //
 ///////////
 
-const Discord		= require("discord.js");
-const fs			= require("fs");
-const client		= new Discord.Client();
-var data			= require("./data.json");
+const Discord       = require("discord.js");
+const fs            = require("fs");
+const client        = new Discord.Client();
+var data            = require("./data.json");
 var readyForPicking = []
-var pickid			= []
+var pickid          = []
 
 //////////////////////////////
 // Bot Options - Edit These //
