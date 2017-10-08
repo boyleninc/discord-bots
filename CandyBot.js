@@ -50,152 +50,152 @@ const candyMsg          = ":candy::candy::candy::candy::candy::candy::candy:\n**
 // Code - DO NOT EDIT //
 ////////////////////////
 
-client.login(discordID);
+client.login(discordID);	//Connects to discord via the token
 
-client.on("ready", () => 
+client.on("ready", () =>	//When the bot connected
 {
-	console.log("Setting up " + serverName + " Bot...")
+	console.log("Setting up " + serverName + " Bot...")	//Log message
 
-	for(c in activeChannels)
+	for(c in activeChannels)	//For all channels the bot is active in, set up environment variables
 	{
 		readyForPicking.push([activeChannels[c], false])
 		pickid.push([activeChannels[c], 0])
 	}
 
-	console.log("Channel array populated: " + readyForPicking)
-	console.log("Channel array populated: " + pickid)
-	console.log(serverName + " Bot Started!");
+	console.log("Channel array populated: " + readyForPicking)	//Log message
+	console.log("Channel array populated: " + pickid)			//Log message
+	console.log(serverName + " Bot Started!");					//Log message
 });
 
-client.on("message", (m) => 
+client.on("message", (m) =>		//When a message is sent
 {
-	if(activeChannels.indexOf(m.channel.name) == -1){return;}
+	if(activeChannels.indexOf(m.channel.name) == -1){return;}	//Exit if its an inactive channel
 	
-	if(m.author.bot)
+	if(m.author.bot)	//If its a bot message
 	{
-		if (m.content == candyMsg)
+		if (m.content == candyMsg)	//If the bot dropped some candy
 		{
-			arraySet(pickid, m.channel.name, m.id);
+			arraySet(pickid, m.channel.name, m.id);	//Store the message ID of the dropped candy message
 		}
-		return;
+		return;	//Exit
 	}
 
-	if(Math.random() < chance && !arrayFind(readyForPicking, m.channel.name) && !m.content.startsWith("."))
+	if(Math.random() < chance && !arrayFind(readyForPicking, m.channel.name) && !m.content.startsWith("."))	//If the requirements to drop candy are met
 	{
-		m.channel.send(candyMsg);
-		arraySet(readyForPicking, m.channel.name, true);
+		m.channel.send(candyMsg);	//Drop candy
+		arraySet(readyForPicking, m.channel.name, true);	//Dont drop more until the candy has been picked
 	}
 	
-	if(!m.content.startsWith(".")){return;}
+	if(!m.content.startsWith(".")){return;}	//Exit if the message is not a CandyBot command
 
-	switch(m.content) 
+	switch(m.content) //Command List
 	{
-    		case ".pick": pick(m); break;
-		case ".candy": candy(m); break;
-		case ".help": help(m); break;
-		case ".buy": buy(m); break;
-		case ".lb": lb(m); break;
+		case ".pick": pick(m); break;		//Pick
+		case ".candy": candy(m); break;		//Candy
+		case ".help": help(m); break;		//Help
+		case ".buy": buy(m); break;			//Buy
+		case ".lb": lb(m); break;			//Leaderboard
 	}
 });
 
-function pick(m)
+function pick(m)	//Handles a .pick command
 {
-	if(arrayFind(readyForPicking, m.channel.name))
+	if(arrayFind(readyForPicking, m.channel.name))	//If there has been candy dropped
 	{
-		m.channel.messages.find("id", arrayFind(pickid, m.channel.name)).delete();
-		amount = getRandomInt(candyMin, candyMax)
-		m.channel.send(m.author + " picked up __**" + amount + "**__ :candy: !");
-		updateData(m.author.id, amount)
-		arraySet(readyForPicking, m.channel.name, false)
+		m.channel.messages.find("id", arrayFind(pickid, m.channel.name)).delete();	//Delete the candy drop message
+		amount = getRandomInt(candyMin, candyMax)									//Create a random amount of candy
+		m.channel.send(m.author + " picked up __**" + amount + "**__ :candy: !");	//Send the picked message
+		updateData(m.author.id, amount)												//Update the users candy level
+		arraySet(readyForPicking, m.channel.name, false)							//Set the bot to start dropping candy
 	}
 	
-	m.delete()
+	m.delete()	//Delete the .pick command message
 }
 
-function candy(m)
+function candy(m)	//Handles a .candy command
 {
-	if(data.hasOwnProperty(m.author.id))
+	if(data.hasOwnProperty(m.author.id))	//If user has candy
 	{
-		m.channel.send(m.author + " You have __**" + data[m.author.id] + "**__ candy!");	
+		m.channel.send(m.author + " You have __**" + data[m.author.id] + "**__ candy!");	//Display users candy
 	}
 	else
 	{
-		m.channel.send(m.author + " You dont have any candy! :frowning: ")
+		m.channel.send(m.author + " You dont have any candy! :frowning: ")	//Display "no candy"
 	}
 }
 
-function help(m)
+function help(m)	//Handles a .help command
 {
 	m.channel.send(":candy: **__Candy Bot Help!__** :candy:\n```.help	Shows this help menu\n.pick	Picks up candy\n.candy   Shows your current candy\n.lb      Shows the leaderboard\n.buy     Buys a " + serverName + " Halloween Role! (Cost " + roleCost + ")```_Made by Super for " + serverName + "_");
 }
 
-function buy(m)
+function buy(m)	//Handles a .buy command
 {
-	name = m.author.id
-	hasRole = m.member.roles.find("name", roleName)
-	role = m.guild.roles.find("name", roleName)
+	name = m.author.id									//Get users id
+	hasRole = m.member.roles.find("name", roleName)		//Get users role
+	role = m.guild.roles.find("name", roleName)			//Get the server role
 	
-	if(hasRole)
+	if(hasRole)	//If the user has the role
 	{
 		m.channel.send(m.author + " You already have the role! :joy: ");
 		return;
 	}
-	if(!data.hasOwnProperty(name))
+	if(!data.hasOwnProperty(name))	//If the user has candy
 	{
 		m.channel.send(m.author + " You dont have any candy! :frowning: ");
 		return;
 	}
-	if(data[name] < roleCost)
+	if(data[name] < roleCost)	//If the user does not have enough candy
 	{
 		m.channel.send(m.author + " You dont have enough candy! :frowning: (Need **__" + roleCost + "__**, you have **__" + data[name] + "__**)")
 		return;
 	}
 	
-	data[name] = data[name]-roleCost
-	m.member.addRole(role, "Bot")
+	data[name] = data[name]-roleCost	//Remove candy
+	m.member.addRole(role, "Bot")		//Give the user the role
 	m.channel.send(m.author + " You have bought the " + roleName + " Role! Keep trying to earn candy! :sparkles: ");
-	saveData();
+	saveData();	//Save user candy data
 }
 
-function lb(m)
+function lb(m)	//Handles a .lb command
 {
-	array = sort()
-	lbStr = ":candy: **__Candy Bot Leaderboard!__** :candy:\n```"
-	for(i = 0; i<10; i++)
+	array = sort()	//Sort the data
+	lbStr = ":candy: **__Candy Bot Leaderboard!__** :candy:\n```"	//Starting leaderboard string
+	for(i = 0; i<10; i++)	//First 10 places
 	{
-		if(i>array.length-1){break;}
-		lbStr = lbStr + (i+1) + ".	" + format(array[i][0]) + "	" + idtoname(array[i][1]) + "\n"
+		if(i>array.length-1){break;}	//Exit if less then 10 people exist in the JSON data
+		lbStr = lbStr + (i+1) + ".	" + format(array[i][0]) + "	" + idtoname(array[i][1]) + "\n"	//Form a leaderboard string
 	}
-	lbStr = lbStr + "```"
-	m.channel.send(lbStr)
+	lbStr = lbStr + "```"	//Add a suffix
+	m.channel.send(lbStr)	//Send the leaderboard string
 }
 
-function updateData(name, amount)
+function updateData(name, amount)	//Updates JSON data
 {
-	if(data.hasOwnProperty(name))
+	if(data.hasOwnProperty(name))	//If user exists in the JSON data
 	{
-		data[name] = data[name]+amount	
+		data[name] = data[name]+amount	//Add candy to a user
 	}
 	else
 	{
-		data[name] = amount
+		data[name] = amount	//Set users candy level
 	}
-	saveData()
+	saveData()	//Save JSON data
 }
 
-function sort()
+function sort()	//Sorts JSON data
 {
-  	var sortedArray = [];
+  	var sortedArray = [];	//Create temp array
 
-  	for(var i in data)
+  	for(var i in data)	//Search all JSON data
   	{
-		sortedArray.push([data[i], i]);
+		sortedArray.push([data[i], i]);	//Populate array
 	}
 
-	return sortedArray.sort((a,b) => b[0] - a[0]);
+	return sortedArray.sort((a,b) => b[0] - a[0]);	//Sort array on sort function
 }
 
-function format(n)
+function format(n)	//Format string for data alignment
 {
 	l = n.toString();
 	if (l.length == 3)
@@ -210,26 +210,26 @@ function format(n)
 	{
 		return l+"   "
 	}
-	return l;
 	
+	return l;
 }
 
-function idtoname(str)
+function idtoname(str)	//Converts a user ID to a username
 {
 	return client.users.find("id", str).username;
 }
 
-function saveData()
+function saveData()	//Save JSON data
 {
 	fs.writeFile("data.json", JSON.stringify(data, null, 2), 'utf8', (error) => { if (error) {console.log("Something Went Wrong!")} })
 }
 
-function getRandomInt(min, max) 
+function getRandomInt(min, max)	//Return random integer
 {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function arraySet(a, k, v)
+function arraySet(a, k, v)	//Sets array dara
 {
 	for(i in a)
 	{
@@ -241,7 +241,7 @@ function arraySet(a, k, v)
 	}
 }
 
-function arrayFind(a, k)
+function arrayFind(a, k)	//Finds array data
 {
 	for(i in a)
 	{
