@@ -157,7 +157,7 @@ function buy(m)	//Handles a .buy command
 		return
 	}
 	
-	data[name] = data[name]-roleCost	//Remove candy
+	updateData(name, -roleCost)         //Remove candy
 	m.member.addRole(role, "Bot")		//Give the user the role
 	m.channel.send(m.author + " You have bought the " + roleName + " Role! Keep trying to earn candy! :sparkles: ")
 	saveData()	//Save user candy data
