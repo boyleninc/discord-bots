@@ -107,8 +107,8 @@ function pick(m)	//Handles a .pick command
 {
 	if(arrayFind(readyForPicking, m.channel.name))	//If there has been candy dropped
 	{
-		m.channel.messages.find("id", arrayFind(pickid, m.channel.name)).delete()	//Delete the candy drop message
-		amount = getRandomInt(candyMin, candyMax)									//Create a random amount of candy
+		const amount = getRandomInt(candyMin, candyMax)								//Create a random amount of candy
+        m.channel.messages.find("id", arrayFind(pickid, m.channel.name)).delete()	//Delete the candy drop message
 		m.channel.send(m.author + " picked up __**" + amount + "**__ :candy: !")	//Send the picked message
 		updateData(m.author.id, amount)												//Update the users candy level
 		arraySet(readyForPicking, m.channel.name, false)							//Set the bot to start dropping candy
@@ -136,9 +136,9 @@ function help(m)	//Handles a .help command
 
 function buy(m)	//Handles a .buy command
 {
-	name = m.author.id									//Get users id
-	hasRole = m.member.roles.find("name", roleName)		//Get users role
-	role = m.guild.roles.find("name", roleName)			//Get the server role
+	const name = m.author.id									//Get users id
+	const hasRole = m.member.roles.find("name", roleName)		//Get users role
+	const role = m.guild.roles.find("name", roleName)			//Get the server role
 	
 	if(hasRole)	//If the user has the role
 	{
@@ -164,8 +164,9 @@ function buy(m)	//Handles a .buy command
 
 function lb(m)	//Handles a .lb command
 {
-	array = sort()	//Sort the data
-	lbStr = ":candy: **__Candy Bot Leaderboard!__** :candy:\n```"	//Starting leaderboard string
+	const array = sort()	//Sort the data
+	var lbStr = ":candy: **__Candy Bot Leaderboard!__** :candy:\n```"	//Starting leaderboard string
+    
 	for(i = 0; i<10; i++)	//First 10 places
 	{
 		if(i>array.length-1){break}	//Exit if less then 10 people exist in the JSON data
@@ -178,6 +179,7 @@ function lb(m)	//Handles a .lb command
 			lbStr = lbStr + (i+1) + ".   " + format(array[i][0]) + "	" + idtoname(array[i][1]) + "\n"	//Form Leaderboard String
 		}
 	}
+    
 	lbStr = lbStr + "```"	//Add a suffix
 	m.channel.send(lbStr)	//Send the leaderboard string
 }
@@ -192,6 +194,7 @@ function updateData(name, amount)	//Updates JSON data
 	{
 		data[name] = amount	//Set users candy level
 	}
+    
 	saveData()	//Save JSON data
 }
 
@@ -209,7 +212,8 @@ function sort()	//Sorts JSON data
 
 function format(n)	//Format string for data alignment
 {
-	l = n.toString()
+	var l = n.toString()
+    
 	if (l.length == 3)
 	{
 		return l + " "
