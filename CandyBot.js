@@ -31,7 +31,7 @@ const client            = new Discord.Client()
 var data                = require("./data.json")
 var readyForPicking     = []
 var pickid              = []
-var channelsString		= ""
+var channelsString      = ""
 
 //////////////////////////////
 // Bot Options - Edit These //
