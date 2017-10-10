@@ -24,15 +24,16 @@
 // Setup - DO NOT EDIT //
 /////////////////////////
 
-const version           = 1.1
-const Discord           = require("discord.js")
-const fs                = require("fs")
-const client            = new Discord.Client()
-var data                = require("./data.json")
-var readyForPicking     = []
-var pickid              = []
-var channelsString      = ""
-var superString         = ""
+const version           = 1.2                       //CandyBot Version
+const Discord           = require("discord.js")     //Discord API
+const fs                = require("fs")             //File System
+const client            = new Discord.Client()      //CandyBot Instance
+var data                = require("./data.json")    //CandyBot Data
+var readyForPicking     = []                        //Proccable channels
+var pickid              = []                        //Last candy proc message
+var lastSent            = []                        //Last user candy proc
+var channelsString      = ""                        //Active channels
+var superString         = ""                        //Author String
 
 //////////////////////////////
 // Bot Options - Edit These //
@@ -63,6 +64,7 @@ client.on("ready", () =>	//When the bot connected
 	{
 		readyForPicking.push([activeChannels[c], false])
 		pickid.push([activeChannels[c], 0])
+        lastSent.push([activeChannels[c], 0])
 		channelsString = channelsString + client.channels.find("name",activeChannels[c]) + " "
 	}
 
@@ -85,11 +87,17 @@ client.on("message", (m) =>		//When a message is sent
 		}
 		return	//Exit
 	}
+    
+    if(arrayFind(lastSent, m.channel.name) != m.author.id)
+    {
+        arraySet(lastSent, m.channel.name, 0)
+    }
 
-	if(Math.random() < chance && !arrayFind(readyForPicking, m.channel.name) && !m.content.startsWith("."))	//If the requirements to drop candy are met
+	if(Math.random() < chance && !arrayFind(readyForPicking, m.channel.name) && (arrayFind(lastSent, m.channel.name) != m.author.id) && !m.content.startsWith("."))	//If the requirements to drop candy are met
 	{
 		m.channel.send(candyMsg)	//Drop candy
 		arraySet(readyForPicking, m.channel.name, true)	//Dont drop more until the candy has been picked
+        arraySet(lastSent, m.channel.name, m.author.id)
 	}
 	
 	if(!m.content.startsWith(".")){return}	//Exit if the message is not a CandyBot command
