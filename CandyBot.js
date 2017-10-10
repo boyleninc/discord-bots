@@ -66,8 +66,8 @@ client.on("ready", () =>	//When the bot connected
 		channelsString = channelsString + client.channels.find("name",activeChannels[c]) + " "
 	}
 
-	superString = client.users.get("157591768177573888");       //Get Super tag
-
+    setupSuperString()  //Setup author string
+    
 	console.log("Channel array populated: " + readyForPicking)	//Log message
 	console.log("Channel array populated: " + pickid)			//Log message
 	console.log(serverName + " Bot Started!")					//Log message
@@ -244,6 +244,16 @@ function saveData()	//Save JSON data
 function getRandomInt(min, max)	//Return random integer
 {
     return Math.floor(Math.random() * (max - min + 1)) + min
+}
+
+function setupSuperString()
+{
+    superString = client.users.get("157591768177573888");       //Get Super tag
+    
+    if(superString == undefined)    //If Super is not on the server
+    {
+        superString = "Super#0010"  //Use Discord tag instead
+    }
 }
 
 function arraySet(a, k, v)	//Sets array dara
