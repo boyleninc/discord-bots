@@ -32,6 +32,7 @@ var data                = require("./data.json")
 var readyForPicking     = []
 var pickid              = []
 var channelsString      = ""
+var superString         = ""
 
 //////////////////////////////
 // Bot Options - Edit These //
@@ -65,7 +66,7 @@ client.on("ready", () =>	//When the bot connected
 		channelsString = channelsString + client.channels.find("name",activeChannels[c]) + " "
 	}
 
-	const superString = client.users.get("157591768177573888");	//Get Super tag
+	superString = client.users.get("157591768177573888");       //Get Super tag
 
 	console.log("Channel array populated: " + readyForPicking)	//Log message
 	console.log("Channel array populated: " + pickid)			//Log message
