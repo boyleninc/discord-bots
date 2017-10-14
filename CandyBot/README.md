@@ -1,4 +1,4 @@
-# Discord Bots
+# CandyBot
 
 ## Changelog
 
