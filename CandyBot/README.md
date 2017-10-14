@@ -23,3 +23,19 @@ buy     Attempts to buy the event role
 - Added custom command prefixes (e.g. .pick, /pick, !pick)
 - Bug Fixes
 - Code Cleanup
+
+#### v1.2
+
+- Added Spam Protection. A user cannot cause candy to spawn if noone else has been active in the text channel since the last candy proc
+- Bug Fixes
+
+#### v1.1
+
+- Added configurable bot options
+- Added author details
+- Code Cleanup
+- Bug Fixes
+
+#### v1.0
+
+- CandyBot Release
