@@ -55,7 +55,7 @@ const discordID         = "?????????????????????????????????????????????????????
 // Code - DO NOT EDIT //
 ////////////////////////
 
-const candyMsg          = ":candy::candy::candy::candy::candy::candy::candy:\n**Random Candy Appeared!**\n_Type " + cmdPrefix + "pick to pick them up!_"    //Bot message on candy proc
+const candyMsg          = ":candy::candy::candy::candy::candy::candy::candy:\n**Random Candy Appeared!**\n_Type **" + cmdPrefix + "pick** to pick them up!_"    //Bot message on candy proc
 
 client.login(discordID)    //Connects to discord via the token
 
