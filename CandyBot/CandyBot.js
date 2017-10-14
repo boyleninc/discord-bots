@@ -145,7 +145,7 @@ function candy(m)    //Handles a candy command
 
 function help(m)    //Handles a help command
 {
-    m.channel.send(":candy: **__Candy Bot Help!__** :candy:\n```" + cmdPrefix + "help    Shows this help menu\n" + cmdPrefix + "pick    Picks up candy\n" + cmdPrefix + "candy   Shows your current candy\n" + cmdPrefix + "lb      Shows the leaderboard\n" + cmdPrefix + "buy     Buys a " + serverName + " Halloween Role! (Cost " + roleCost + ")```**CandyBot v" + version + "** active in: " + channelsString + "\n[_Made for " + serverName + "_] [_Created by " + superString + "_]")
+    m.channel.send(":candy: **__CandyBot Help!__** :candy:\n```" + cmdPrefix + "help    Shows this help menu\n" + cmdPrefix + "pick    Picks up candy\n" + cmdPrefix + "candy   Shows your current candy\n" + cmdPrefix + "lb      Shows the leaderboard\n" + cmdPrefix + "buy     Buys a " + serverName + " Halloween Role! (Cost " + roleCost + ")```**CandyBot v" + version + "** active in: " + channelsString + "\n[_Made for " + serverName + "_] [_Created by " + superString + "_]")
     cleanup(m)  //Deletes the message if this is a clean command
 }
 
@@ -186,7 +186,7 @@ function buy(m)    //Handles a buy command
 function lb(m)    //Handles a lb command
 {
     const array = sort()    //Sort the data
-    var lbStr = ":candy: **__Candy Bot Leaderboard!__** :candy:\n```"    //Starting leaderboard string
+    var lbStr = ":candy: **__CandyBot Leaderboard!__** :candy:\n```"    //Starting leaderboard string
     
     for(i = 0; i<10; i++)    //First 10 places
     {

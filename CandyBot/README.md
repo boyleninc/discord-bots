@@ -18,6 +18,11 @@ Users can collect the candy and use it to buy an event discord role.
 
 ## Changelog
 
+#### v1.4
+
+
+- Bug Fixes
+
 #### v1.3
 
 - Added Changelog!
