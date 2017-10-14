@@ -6,7 +6,7 @@ By axc450 (Github) / Super#0100 (Discord)
 CandyBot spawns candy based off sent messages.
 Users can collect the candy and use it to buy an event discord role.
 
-## Commands:
+## Commands
 
 | Command | Usage                          |
 |---------|--------------------------------|
