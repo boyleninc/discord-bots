@@ -15,7 +15,7 @@ Users can collect the candy and use it to buy event discord roles.
 | candy    | Shows the users current candy  |
 | lb       | Shows the leaderboard          |
 | roles    | Shows the leaderboard          |
-| buy <num>| Attempts to buy the event role |
+| buy <num>| Attempts to buy an event role  |
 
 ## Changelog
 
