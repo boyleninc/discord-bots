@@ -28,14 +28,17 @@ Users can collect the candy and use it to buy event discord roles.
 #### v1.3
 
 - Added Changelog
-- Added 'Clean Commands'. Commands that are 'clean' are automatically deleted when typed by a user
-- Added custom command prefixes (e.g. .pick, /pick, !pick)
+- Added 'Clean Commands'
+	- Commands that are 'clean' are automatically deleted when typed by a user
+- Added custom command prefixes
+	- e.g. .pick, /pick, !pick
 - Bug Fixes
 - Code Cleanup
 
 #### v1.2
 
-- Added Spam Protection. A user cannot cause candy to spawn if noone else has been active in the text channel since the last candy proc
+- Added Spam Protection
+	- A user cannot cause candy to spawn if no-one else has been active in the text channel since the last candy spawn
 - Bug Fixes
 
 #### v1.1
@@ -48,3 +51,42 @@ Users can collect the candy and use it to buy event discord roles.
 #### v1.0
 
 - CandyBot Release
+
+## Roadmap
+
+#### v1.5
+
+- More spam protection
+	- Amount of times a user can .pick in a row
+	- Misc bug fixes from live
+- Blacklists
+	- Users
+	- Roles
+- Add Roadmap
+- Bug Fixes (update from live to GitHub)
+	- Check message existence before attempting to delete
+	- Misc bug fixes from live
+
+#### v1.6
+
+- Output Customisation 
+	- Currency
+	- Emoji
+- Channel-Specific Spawn Rates
+
+#### v1.7
+
+- Add admin commands
+	- Spawn (forces a candy spawn)
+	- Give (gives a user candy)
+	- Option (change bot options on the fly)
+- Add more user commands
+	- Info (shows bot info)
+		- Current info in 'help'
+		- Total candy that has dropped
+		- Uptime
+	- Gift (gift users candy)
+
+#### v1.8
+
+- Multicurrency Support
