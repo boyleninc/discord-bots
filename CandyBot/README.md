@@ -63,7 +63,7 @@ Users can collect the candy and use it to buy event discord roles.
 	- Users
 	- Roles
 - Add Roadmap
-- Bug Fixes (update from live to GitHub)
+- Bug Fixes
 	- Check message existence before attempting to delete
 	- Misc bug fixes from live
 
