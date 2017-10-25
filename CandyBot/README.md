@@ -73,6 +73,8 @@ Users can collect the candy and use it to buy event discord roles.
 	- Currency
 	- Emoji
 - Channel-Specific Spawn Rates
+- Ordered Roles
+	- Users must buy the roles in order
 
 #### v1.7
 
