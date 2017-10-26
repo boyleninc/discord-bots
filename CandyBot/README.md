@@ -98,3 +98,6 @@ Users can collect the candy and use it to buy event discord roles.
 #### v1.8
 
 - Multicurrency Support
+- Bug Fixes
+	- Leaderboard fix when noone has candy
+	- Role list fix when only one role
