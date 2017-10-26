@@ -66,12 +66,15 @@ Users can collect the candy and use it to buy event discord roles.
 - Bug Fixes
 	- Check message existence before attempting to delete
 	- Misc bug fixes from live
+	- Ignore uppercase/lowercase
 
 #### v1.6
 
 - Output Customisation 
 	- Currency
 	- Emoji
+- Candy Cap
+	- 0 = no cap
 - Channel-Specific Spawn Rates
 - Ordered Roles
 	- Users must buy the roles in order
