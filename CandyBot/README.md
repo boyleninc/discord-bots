@@ -64,9 +64,7 @@ Users can collect the candy and use it to buy event discord roles.
 	- Roles
 - Add Roadmap
 - Bug Fixes
-	- Check message existence before attempting to delete
 	- Misc bug fixes from live
-	- Ignore uppercase/lowercase
 
 #### v1.6
 
@@ -78,6 +76,11 @@ Users can collect the candy and use it to buy event discord roles.
 - Channel-Specific Spawn Rates
 - Ordered Roles
 	- Users must buy the roles in order
+- Code Cleanup
+	- Ignore uppercase/lowercase
+	- Add more helper methods
+		- Check users candy before making changes
+		- Check message existence before attempting to delete
 
 #### v1.7
 
