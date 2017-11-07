@@ -56,17 +56,20 @@ Users can collect the candy and use it to buy event discord roles.
 
 #### v1.5
 
+- Code split into multiple files
+
+#### v1.6
+
 - More spam protection
 	- Amount of times a user can .pick in a row
 	- Misc bug fixes from live
 - Blacklists
 	- Users
 	- Roles
-- Add Roadmap
 - Bug Fixes
 	- Misc bug fixes from live
 
-#### v1.6
+#### v1.7
 
 - Output Customisation 
 	- Currency
@@ -82,7 +85,7 @@ Users can collect the candy and use it to buy event discord roles.
 		- Check users candy before making changes
 		- Check message existence before attempting to delete
 
-#### v1.7
+#### v1.8
 
 - Add admin commands
 	- Spawn (forces a candy spawn)
@@ -95,7 +98,7 @@ Users can collect the candy and use it to buy event discord roles.
 		- Uptime
 	- Gift (gift users candy)
 
-#### v1.8
+#### v1.9
 
 - Multicurrency Support
 - Bug Fixes
