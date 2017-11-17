@@ -33,6 +33,7 @@ var data                = require("./data.json")    //CandyBot Data
 var readyForPicking     = []                        //Proccable channels
 var pickid              = []                        //Last candy proc message
 var lastSent            = []                        //Last user candy proc
+var lastPick            = []                        //Last user candy pick
 var channelsString      = ""                        //Active channels
 var superString         = ""                        //Author String
 
@@ -47,6 +48,10 @@ const serverName        = "My Server"      //Name of your server
 const roleData          = [["Role1", 10], ["Role2", 20]]  //Role names & costs
 const activeChannels    = ["Channel 1", "Channel 2"]      //Text channels the bot is active in
 const cleanCmds         = ["pick", "buy"]                 //Commands that are 'clean' (command message auto-deleted)
+
+const pickLimit         = 3                 //Amount of times users can .pick in a row
+const blacklist_roles   = ["BadRole"]       //Roles that cannot interact with CandyBot
+const blacklist_users   = ["BadUser#1234"]  //Users that cannot interact with CandyBot
 
 const cmdPrefix         = "."   //Command prefix
 const discordID         = "???????????????????????????????????????????????????????????"    //Discord Bot API Token
@@ -63,12 +68,13 @@ client.on("ready", () =>    //When the bot connected
 {
     console.log("Setting up " + serverName + " Bot...")    //Log message
 
-    for (c in activeChannels)    //For all channels the bot is active in, set up environment variables
+    for (c of activeChannels)    //For all channels the bot is active in, set up environment variables
     {
-        readyForPicking.push([activeChannels[c], false])
-        pickid.push([activeChannels[c], 0])
-        lastSent.push([activeChannels[c], 0])
-        channelsString = channelsString + client.channels.find("name",activeChannels[c]) + " "
+        readyForPicking.push([c, false])
+        pickid.push([c, 0])
+        lastSent.push([c, 0])
+        lastPick.push([0, 0])
+        channelsString = channelsString + client.channels.find("name",c) + " "
     }
 
     setupSuperString()  //Setup author string
@@ -103,8 +109,10 @@ client.on("message", (m) =>        //When a message is sent
         arraySet(lastSent, m.channel.name, m.author.id)
     }
     
-    if (!m.content.startsWith(cmdPrefix)){return}    //Exit if the message is not a CandyBot command
-
+    if (!m.content.startsWith(cmdPrefix)){return}                  //Exit if the message is not a CandyBot command
+    if (findBlacklistRoles(m.member.roles)){cleanup(m); return}    //Exit if user role is in the blacklist
+    if (blacklist_users.indexOf(m.member.user.tag) != -1){cleanup(m); return}    //Exit if user tag is in the blacklist
+    
     switch (m.content) //Command List
     {
         case (cmdPrefix + "pick"): pick(m); break        //Pick
@@ -118,20 +126,31 @@ client.on("message", (m) =>        //When a message is sent
     {
         buy(m)  //Buy
     }
+    
+    cleanup(m)  //Deletes the message if this is a clean command
 })
 
 function pick(m)    //Handles a pick command
 {
-    if (arrayFind(readyForPicking, m.channel.name))    //If there has been candy dropped
+    if (arrayFind(readyForPicking, m.channel.name) && !(lastPick[0] == m.author.id && lastPick[1] >= pickLimit))    //If there has been candy dropped and user hasnt hit the pick limit
     {
         const amount = getRandomInt(candyMin, candyMax)                              //Create a random amount of candy
         m.channel.messages.find("id", arrayFind(pickid, m.channel.name)).delete()    //Delete the candy drop message
         m.channel.send(m.author + " picked up __**" + amount + "**__ :candy: !")     //Send the picked message
         updateData(m.author.id, amount)                                              //Update the users candy level
         arraySet(readyForPicking, m.channel.name, false)                             //Set the bot to start dropping candy
+        
+        if(lastPick[0] == m.author.id)          //If the same user picked again
+        {
+            lastPick[1] = lastPick[1] + 1       //Increase their pick count
+        }
+        else
+        {
+            lastPick[1] = 1                     //Set their pick count to 1
+        }
+        
+        lastPick[0] = m.author.id               //Set the last user picked to this user
     }
-    
-    cleanup(m)  //Deletes the message if this is a clean command
 }
 
 function candy(m)    //Handles a candy command
@@ -144,14 +163,11 @@ function candy(m)    //Handles a candy command
     {
         m.channel.send(m.author + " You dont have any candy! :frowning: ")    //Display "no candy"
     }
-    
-    cleanup(m)  //Deletes the message if this is a clean command
 }
 
 function help(m)    //Handles a help command
 {
     m.channel.send(":candy: **__Candy Bot Help!__** :candy:\n```" + cmdPrefix + "help        Shows this help menu\n" + cmdPrefix + "pick        Picks up candy\n" + cmdPrefix + "candy       Shows your current candy\n" + cmdPrefix + "lb          Shows the leaderboard\n"  + cmdPrefix + "roles       Shows the buyable roles (inc. role numbers & cost)\n" + cmdPrefix + "buy <num>   Buys a " + serverName + " Event Role```**CandyBot v" + version + "** active in: " + channelsString + "\n[_Made for " + serverName + "_] [_Created by " + superString + "_]")
-    cleanup(m)  //Deletes the message if this is a clean command
 }
 
 function roles(m)
@@ -172,7 +188,6 @@ function roles(m)
     
     rolesStr = rolesStr + "```_Type **" + cmdPrefix + "buy <num>** to buy a role!_"     //Add a suffix
     m.channel.send(rolesStr)   //Send the leaderboard string
-    cleanup(m)              //Deletes the message if this is a clean command
 }
 
 function buy(m)    //Handles a buy command
@@ -222,7 +237,6 @@ function buy(m)    //Handles a buy command
     m.member.addRole(role, "Bot")       //Give the user the role
     m.channel.send(m.author + " You have bought the **" + roleSelection[0] + "** Role! Keep trying to earn candy! :sparkles: ")
     saveData()  //Save user candy data
-    cleanup(m)  //Deletes the message if this is a clean command
 }
 
 function lb(m)    //Handles a lb command
@@ -246,7 +260,6 @@ function lb(m)    //Handles a lb command
     
     lbStr = lbStr + "```"   //Add a suffix
     m.channel.send(lbStr)   //Send the leaderboard string
-    cleanup(m)              //Deletes the message if this is a clean command
 }
 
 function cleanup(m)     //Deletes a command message if the command is clean
@@ -349,13 +362,22 @@ function getRoleNum(m)
 	return Number(m.content.slice(cmdPrefix.length+4, m.length))    //Gets a role from a buy command argument
 }
 
+function findBlacklistRoles(roles)
+{
+    for (var r of blacklist_roles)
+    {
+        if(roles.find("name", r)){return true}
+    }
+    return false
+}
+
 function arraySet(a, k, v)    //Sets array dara
 {
-    for (var i in a)
+    for (var i of a)
     {
-        if (a[i][0] == k)
+        if (i[0] == k)
         {
-            a[i][1] = v
+            i[1] = v
             return
         }
     }
@@ -363,11 +385,11 @@ function arraySet(a, k, v)    //Sets array dara
 
 function arrayFind(a, k)    //Finds array data
 {
-    for (var i in a)
+    for (var i of a)
     {
-        if (a[i][0] == k)
+        if (i[0] == k)
         {
-            return a[i][1]
+            return i[1]
         }
     }
 }
