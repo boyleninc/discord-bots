@@ -19,6 +19,17 @@ Users can collect the candy and use it to buy event discord roles.
 
 ## Changelog
 
+#### v1.5
+
+- Added more spam protection
+	- Amount of times a user can .pick in a row
+- Added blacklists
+	- Users
+	- Roles
+- Added Roadmap
+- Bug Fixes
+- Code Cleanup
+
 #### v1.4
 
 - Added Multirole Support
@@ -53,18 +64,6 @@ Users can collect the candy and use it to buy event discord roles.
 - CandyBot Release
 
 ## Roadmap
-
-#### v1.5
-
-- More spam protection
-	- Amount of times a user can .pick in a row
-	- Misc bug fixes from live
-- Blacklists
-	- Users
-	- Roles
-- Add Roadmap
-- Bug Fixes
-	- Misc bug fixes from live
 
 #### v1.6
 
