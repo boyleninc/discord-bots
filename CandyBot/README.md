@@ -72,11 +72,9 @@ Users can collect the candy and use it to buy event discord roles.
 	- Emoji
 - Candy Cap
 	- 0 = no cap
-- Channel-Specific Spawn Rates
-- Ordered Roles
-	- Users must buy the roles in order
 - Code Cleanup
 	- Ignore uppercase/lowercase
+	- Convert all code from candy -> currency
 	- Add more helper methods
 		- Check users candy before making changes
 		- Check message existence before attempting to delete
@@ -95,6 +93,12 @@ Users can collect the candy and use it to buy event discord roles.
 	- Gift (gift users candy)
 
 #### v1.8
+
+- Channel-Specific Spawn Rates
+- Ordered Roles
+	- Users must buy the roles in order
+
+#### v1.9
 
 - Multicurrency Support
 - Bug Fixes
