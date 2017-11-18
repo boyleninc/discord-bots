@@ -100,3 +100,4 @@ Users can collect the currency and use it to buy event discord roles.
 - Bug Fixes
 	- Leaderboard fix when noone has candy
 	- Role list fix when only one role
+- Better Error Checking
