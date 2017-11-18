@@ -3,21 +3,30 @@
 Holiday Event Bot for Discord
 By axc450 (Github) / Super#0100 (Discord)
 
-CandyBot spawns candy based off sent messages.
-Users can collect the candy and use it to buy event discord roles.
+CandyBot spawns currency based off sent messages.
+Users can collect the currency and use it to buy event discord roles.
 
 ## Commands
 
-| Command  | Usage                          |
-|----------|--------------------------------|
-| help     | Shows the CandyBot help menu   |
-| pick     | Picks up candy when it spawns  |
-| candy    | Shows the users current candy  |
-| lb       | Shows the leaderboard          |
-| roles    | Shows the leaderboard          |
-| buy \<num\>| Attempts to buy an event role  |
+| Command    | Usage                             |
+|------------|-----------------------------------|
+| help       | Shows the CandyBot help menu      |
+| pick       | Picks up currency when it spawns  |
+| value      | Shows the users current currency  |
+| lb         | Shows the leaderboard             |
+| roles      | Shows the buyable roles           |
+| buy \<num\>| Attempts to buy an event role     |
 
 ## Changelog
+
+#### v1.6
+
+- Added custom currency & emoji 
+- Added optional candy cap
+	- 0 = no cap
+- Code Cleanup
+	- CandyBot commands now ignore ascii case
+	- All code has been converted to use 'Currency' instead of "Candy" to reflect custom currency
 
 #### v1.5
 
@@ -64,20 +73,6 @@ Users can collect the candy and use it to buy event discord roles.
 - CandyBot Release
 
 ## Roadmap
-
-#### v1.6
-
-- Output Customisation 
-	- Currency
-	- Emoji
-- Candy Cap
-	- 0 = no cap
-- Code Cleanup
-	- Ignore uppercase/lowercase
-	- Convert all code from candy -> currency
-	- Add more helper methods
-		- Check users candy before making changes
-		- Check message existence before attempting to delete
 
 #### v1.7
 

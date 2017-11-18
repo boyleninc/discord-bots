@@ -2,30 +2,30 @@
 //                              CANDYBOT                              //
 ////////////////////////////////////////////////////////////////////////
 
-////////////////////////////////////////////////////////////////////////
-// Holiday Event Bot for Discord                                      //
-// By axc450 (Github) / Super#0100 (Discord)                          //
-//                                                                    //
-// CandyBot spawns candy based off sent messages.                     //
-// Users can collect the candy and use it to buy event discord roles. //
-////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+// Holiday Event Bot for Discord                                         //
+// By axc450 (Github) / Super#0100 (Discord)                             //
+//                                                                       //
+// CandyBot spawns currency based off sent messages.                     //
+// Users can collect the currency and use it to buy event discord roles. //
+///////////////////////////////////////////////////////////////////////////
 
-////////////////////////////////////////////////
-// Commands:                                  //
-//                                            //
-// help         Shows the CandyBot help menu  //
-// pick         Picks up candy when it spawns //
-// candy        Shows the users current candy //
-// lb           Shows the leaderboard         //
-// roles        Shows the buyable roles       //
-// buy <num>    Attempts to buy an event role //
-////////////////////////////////////////////////
+///////////////////////////////////////////////////
+// Commands:                                     //
+//                                               //
+// help         Shows the CandyBot help menu     //
+// pick         Picks up currency when it spawns //
+// value        Shows the users current currency //
+// lb           Shows the leaderboard            //
+// roles        Shows the buyable roles          //
+// buy <num>    Attempts to buy an event role    //
+///////////////////////////////////////////////////
 
 /////////////////////////
 // Setup - DO NOT EDIT //
 /////////////////////////
 
-const version           = 1.4                       //CandyBot Version
+const version           = 1.6                       //CandyBot Version
 const Discord           = require("discord.js")     //Discord API
 const fs                = require("fs")             //File System
 const client            = new Discord.Client()      //CandyBot Instance
@@ -41,10 +41,14 @@ var superString         = ""                        //Author String
 // Bot Options - Edit These //
 //////////////////////////////
 
-const chance            = 0.5              //Chance to spawn a candy (0 = 0%, 1 = 100%)
-const candyMin          = 1                //Minimum candy to drop
-const candyMax          = 10               //Maximum candy to drop
-const serverName        = "My Server"      //Name of your server
+const currency          = "Candy"       //Currency name
+const emoji             = ":candy:"     //Currency emoji
+const chance            = 0.5           //Chance to spawn currency (0 = 0%, 1 = 100%)
+const currMin           = 1             //Minimum currency to drop
+const currMax           = 10            //Maximum currency to drop
+const currCap           = 0             //Maximum currency a user can hold (0 = no cap)
+
+const serverName        = "My Server"                     //Name of your server
 const roleData          = [["Role1", 10], ["Role2", 20]]  //Role names & costs
 const activeChannels    = ["Channel 1", "Channel 2"]      //Text channels the bot is active in
 const cleanCmds         = ["pick", "buy"]                 //Commands that are 'clean' (command message auto-deleted)
@@ -53,14 +57,14 @@ const pickLimit         = 3                 //Amount of times users can .pick in
 const blacklist_roles   = ["BadRole"]       //Roles that cannot interact with CandyBot
 const blacklist_users   = ["BadUser#1234"]  //Users that cannot interact with CandyBot
 
-const cmdPrefix         = "."   //Command prefix
+const cmdPrefix         = "."               //Command prefix
 const discordID         = "???????????????????????????????????????????????????????????"    //Discord Bot API Token
 
 ////////////////////////
 // Code - DO NOT EDIT //
 ////////////////////////
 
-const candyMsg          = ":candy::candy::candy::candy::candy::candy::candy:\n**Random Candy Appeared!**\n_Type **" + cmdPrefix + "pick** to pick them up!_"    //Bot message on candy proc
+const currMsg          = emoji + emoji + emoji + emoji + emoji + emoji + emoji + emoji + "\n**Random " + currency + " Appeared!**\n_Type **" + cmdPrefix + "pick** to pick it up!_"    //Bot message on currency proc
 
 client.login(discordID)    //Connects to discord via the token
 
@@ -74,13 +78,14 @@ client.on("ready", () =>    //When the bot connected
         pickid.push([c, 0])
         lastSent.push([c, 0])
         lastPick.push([0, 0])
-        channelsString = channelsString + client.channels.find("name",c) + " "
+        channelsString = channelsString + client.channels.find("name",c).toString() + " "
     }
 
     setupSuperString()  //Setup author string
     
     console.log("Channel array populated: " + readyForPicking)  //Log message
     console.log("Channel array populated: " + pickid)           //Log message
+    
     console.log(serverName + " Bot Started!")                   //Log message
 })
 
@@ -90,33 +95,35 @@ client.on("message", (m) =>        //When a message is sent
     
     if (m.author.bot)    //If its a bot message
     {
-        if (m.content == candyMsg)    //If the bot dropped some candy
+        if (m.content == currMsg)    //If the bot dropped currency
         {
-            arraySet(pickid, m.channel.name, m.id)    //Store the message ID of the dropped candy message
+            arraySet(pickid, m.channel.name, m.id)    //Store the message ID of the dropped currency message
         }
         return    //Exit
     }
     
     if (arrayFind(lastSent, m.channel.name) != m.author.id)  //If a different user has spoken
     {
-        arraySet(lastSent, m.channel.name, 0)   //Allow candy to drop
+        arraySet(lastSent, m.channel.name, 0)   //Allow currency to drop
     }
 
-    if (Math.random() < chance && !arrayFind(readyForPicking, m.channel.name) && (arrayFind(lastSent, m.channel.name) != m.author.id) && !m.content.startsWith(cmdPrefix))    //If the requirements to drop candy are met
+    if (Math.random() < chance && !arrayFind(readyForPicking, m.channel.name) && (arrayFind(lastSent, m.channel.name) != m.author.id) && !m.content.startsWith(cmdPrefix))    //If the requirements to drop currency are met
     {
-        m.channel.send(candyMsg)    //Drop candy
-        arraySet(readyForPicking, m.channel.name, true)    //Dont drop more until the candy has been picked
-        arraySet(lastSent, m.channel.name, m.author.id)
+        m.channel.send(currMsg)    //Drop currency
+        arraySet(readyForPicking, m.channel.name, true)    //Dont drop more until the currency has been picked
+        arraySet(lastSent, m.channel.name, m.author.id)    //Store the user that procced the currency drop
     }
     
     if (!m.content.startsWith(cmdPrefix)){return}                  //Exit if the message is not a CandyBot command
     if (findBlacklistRoles(m.member.roles)){cleanup(m); return}    //Exit if user role is in the blacklist
     if (blacklist_users.indexOf(m.member.user.tag) != -1){cleanup(m); return}    //Exit if user tag is in the blacklist
     
+    m.content = m.content.toLowerCase()     //Ignore uppercase/lowercase in a command
+    
     switch (m.content) //Command List
     {
         case (cmdPrefix + "pick"): pick(m); break        //Pick
-        case (cmdPrefix + "candy"): candy(m); break      //Candy
+        case (cmdPrefix + "value"): value(m); break      //Value
         case (cmdPrefix + "help"): help(m); break        //Help
         case (cmdPrefix + "roles"): roles(m); break      //Roles
         case (cmdPrefix + "lb"): lb(m); break            //Leaderboard
@@ -132,13 +139,13 @@ client.on("message", (m) =>        //When a message is sent
 
 function pick(m)    //Handles a pick command
 {
-    if (arrayFind(readyForPicking, m.channel.name) && !(lastPick[0] == m.author.id && lastPick[1] >= pickLimit))    //If there has been candy dropped and user hasnt hit the pick limit
+    if (arrayFind(readyForPicking, m.channel.name) && !(lastPick[0] == m.author.id && lastPick[1] >= pickLimit))    //If there has been currency dropped and user hasnt hit the pick limit
     {
-        const amount = getRandomInt(candyMin, candyMax)                              //Create a random amount of candy
-        m.channel.messages.find("id", arrayFind(pickid, m.channel.name)).delete()    //Delete the candy drop message
-        m.channel.send(m.author + " picked up __**" + amount + "**__ :candy: !")     //Send the picked message
-        updateData(m.author.id, amount)                                              //Update the users candy level
-        arraySet(readyForPicking, m.channel.name, false)                             //Set the bot to start dropping candy
+        const amount = getRandomInt(currMin, currMax)                              //Create a random amount of currency
+        m.channel.messages.find("id", arrayFind(pickid, m.channel.name)).delete()    //Delete the currency drop message
+        m.channel.send(m.author + " picked up __**" + amount + "**__ " + emoji + " !")     //Send the picked message
+        updateData(m.author.id, amount)                                              //Update the users currency value
+        arraySet(readyForPicking, m.channel.name, false)                             //Set the bot to start dropping currency
         
         if(lastPick[0] == m.author.id)          //If the same user picked again
         {
@@ -153,26 +160,26 @@ function pick(m)    //Handles a pick command
     }
 }
 
-function candy(m)    //Handles a candy command
+function value(m)    //Handles a candy command
 {
-    if (data.hasOwnProperty(m.author.id))    //If user has candy
+    if (data.hasOwnProperty(m.author.id))    //If user has currency
     {
-        m.channel.send(m.author + " You have __**" + data[m.author.id] + "**__ candy!")    //Display users candy
+        m.channel.send(m.author + " You have __**" + data[m.author.id] + "**__ " + emoji + "!")    //Display users currency
     }
     else
     {
-        m.channel.send(m.author + " You dont have any candy! :frowning: ")    //Display "no candy"
+        m.channel.send(m.author + " You dont have any " + emoji + "! :frowning: ")    //Display "no currency"
     }
 }
 
 function help(m)    //Handles a help command
 {
-    m.channel.send(":candy: **__Candy Bot Help!__** :candy:\n```" + cmdPrefix + "help        Shows this help menu\n" + cmdPrefix + "pick        Picks up candy\n" + cmdPrefix + "candy       Shows your current candy\n" + cmdPrefix + "lb          Shows the leaderboard\n"  + cmdPrefix + "roles       Shows the buyable roles (inc. role numbers & cost)\n" + cmdPrefix + "buy <num>   Buys a " + serverName + " Event Role```**CandyBot v" + version + "** active in: " + channelsString + "\n[_Made for " + serverName + "_] [_Created by " + superString + "_]")
+    m.channel.send(emoji + " **__CandyBot Help!__** " + emoji + "\n```" + cmdPrefix + "help        Shows this help menu\n" + cmdPrefix + "pick        Picks up " + currency + "\n" + cmdPrefix + "value       Shows your current " + currency + "\n" + cmdPrefix + "lb          Shows the leaderboard\n"  + cmdPrefix + "roles       Shows the buyable roles (inc. role numbers & cost)\n" + cmdPrefix + "buy <num>   Buys a " + serverName + " Event Role```**CandyBot v" + version + "** active in: " + channelsString + "\n[_Made for " + serverName + "_] [_Created by " + superString + "_]")
 }
 
 function roles(m)
 {
-    var rolesStr = ":candy: **__CandyBot Roles!__** :candy:\n```"   //Starting roles string
+    var rolesStr = emoji + " **__CandyBot Roles!__** " + emoji + "\n```"   //Starting roles string
     
     for(i = 0; i<roleData.length; i++)  //Get all roles
     {   
@@ -219,30 +226,30 @@ function buy(m)    //Handles a buy command
         return
     }
     
-    if (!data.hasOwnProperty(name))    //If the user has candy
+    if (!data.hasOwnProperty(name))    //If the user has currency
     {
-        m.channel.send(m.author + " You dont have any candy! :frowning: ")
+        m.channel.send(m.author + " You dont have any " + emoji + "! :frowning: ")
         cleanup(m)  //Deletes the message if this is a clean command
         return
     }
     
-    if (data[name] < roleSelection[1])    //If the user does not have enough candy
+    if (data[name] < roleSelection[1])    //If the user does not have enough currency
     {
-        m.channel.send(m.author + " You dont have enough candy! :frowning: (Need **__" + roleSelection[1] + "__**, you have **__" + data[name] + "__**)")
+        m.channel.send(m.author + " You dont have enough " + emoji + "! :frowning: (Need **__" + roleSelection[1] + "__**, you have **__" + data[name] + "__**)")
         cleanup(m)  //Deletes the message if this is a clean command
         return
     }
     
-    updateData(name, -roleSelection[1])         //Remove candy
+    updateData(name, -roleSelection[1])         //Remove currency
     m.member.addRole(role, "Bot")       //Give the user the role
-    m.channel.send(m.author + " You have bought the **" + roleSelection[0] + "** Role! Keep trying to earn candy! :sparkles: ")
-    saveData()  //Save user candy data
+    m.channel.send(m.author + " You have bought the **" + roleSelection[0] + "** Role! Keep trying to earn " + emoji + "! :sparkles: ")
+    saveData()  //Save user currency data
 }
 
 function lb(m)    //Handles a lb command
 {
     const array = sort()    //Sort the data
-    var lbStr = ":candy: **__CandyBot Leaderboard!__** :candy:\n```"    //Starting leaderboard string
+    var lbStr = emoji + " **__CandyBot Leaderboard!__** " + emoji + "\n```"    //Starting leaderboard string
     
     for (i = 0; i<10; i++)    //First 10 places
     {
@@ -281,11 +288,18 @@ function updateData(name, amount)    //Updates JSON data
 {
     if (data.hasOwnProperty(name))    //If user exists in the JSON data
     {
-        data[name] = data[name]+amount    //Add candy to a user
+        if (data[name]+amount >= currCap && currCap != 0)     //If currency cap has been reached
+        {
+            data[name] = currCap              //Cap currecny
+        }
+        else
+        {
+            data[name] = data[name]+amount    //Add currency to a user
+        }
     }
     else
     {
-        data[name] = amount    //Set users candy level
+        data[name] = amount    //Set users currency level
     }
     
     saveData()    //Save JSON data
