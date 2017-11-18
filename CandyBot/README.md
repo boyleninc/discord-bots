@@ -25,8 +25,8 @@ Users can collect the currency and use it to buy event discord roles.
 - Added optional candy cap
 	- 0 = no cap
 - Code Cleanup
-	- CandyBot commands now ignore ascii case
-	- All code has been converted to use 'Currency' instead of "Candy" to reflect custom currency
+	- CandyBot commands now ignore ASCII case
+	- All code has been converted to use 'Currency' instead of 'Candy' to reflect custom currency
 
 #### v1.5
 
