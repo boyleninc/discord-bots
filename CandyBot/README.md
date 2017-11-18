@@ -76,22 +76,23 @@ Users can collect the currency and use it to buy event discord roles.
 
 #### v1.7
 
+- Convert config to JSON
 - Add admin commands
 	- Spawn (forces a candy spawn)
 	- Give (gives a user candy)
 	- Option (change bot options on the fly)
-- Add more user commands
-	- Info (shows bot info)
-		- Current info in 'help'
-		- Total candy that has dropped
-		- Uptime
-	- Gift (gift users candy)
 
 #### v1.8
 
 - Channel-Specific Spawn Rates
 - Ordered Roles
 	- Users must buy the roles in order
+- Add more user commands
+	- Info (shows bot info)
+		- Current info in 'help'
+		- Total candy that has dropped
+		- Uptime
+	- Gift (gift users candy)
 
 #### v1.9
 
