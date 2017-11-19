@@ -1,4 +1,4 @@
-# CandyBot <img src="https://discordapp.com/assets/49b17ff287afeb1d5feffe0e7af3c2ec.svg" width="32" height="32">
+# CandyBot <img src="https://discordapp.com/assets/49b17ff287afeb1d5feffe0e7af3c2ec.svg" width="28" height="28">
 
 Holiday Event Bot for Discord
 By axc450 (Github) / Super#0100 (Discord)
