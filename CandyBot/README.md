@@ -1,4 +1,4 @@
-# CandyBot ![CandyBot](https://discordapp.com/assets/49b17ff287afeb1d5feffe0e7af3c2ec.svg)
+# CandyBot ![CandyBot](https://discordapp.com/assets/49b17ff287afeb1d5feffe0e7af3c2ec.svg =128x128)
 
 Holiday Event Bot for Discord
 By axc450 (Github) / Super#0100 (Discord)
