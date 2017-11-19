@@ -1,0 +1,40 @@
+{
+  "currency": "Candy",
+  "emoji": ":candy:",
+  "chance": 0.5,
+  "currMin": 1,
+  "currMax": 10,
+  "currCap": 0,
+  "serverName": "My Server",
+  "roleData": {
+    "Role 1": 10,
+    "Role 2": 20
+  },
+  "activeChannels": [
+    "Channel 1",
+    "Channel 2"
+  ],
+  "cleanCmds": [
+    "pick",
+    "buy",
+    "force",
+    "chance",
+    "candy",
+    "channel",
+    "pickcap",
+    "blacklist",
+    "give"
+  ],
+  "pickLimit": 3,
+  "admin_roles": [
+    "Role Admin"
+  ],
+  "blacklist_roles": [
+    "Role Blacklist"
+  ],
+  "blacklist_users": [
+    "BadUser#1234"
+  ],
+  "cmdPrefix": ".",
+  "discordID": "???????????????????????????????????????????????????????????"
+}

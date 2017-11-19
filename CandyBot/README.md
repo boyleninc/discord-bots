@@ -8,16 +8,35 @@ Users can collect the currency and use it to buy event discord roles.
 
 ## Commands
 
-| Command    | Usage                             |
-|------------|-----------------------------------|
-| help       | Shows the CandyBot help menu      |
-| pick       | Picks up currency when it spawns  |
-| value      | Shows the users current currency  |
-| lb         | Shows the leaderboard             |
-| roles      | Shows the buyable roles           |
-| buy \<num\>| Attempts to buy an event role     |
+| Command                       | Usage                                 | Type  |
+|-------------------------------|---------------------------------------|-------|
+| help                          | Shows the CandyBot help menu          | User  |
+| pick                          | Picks up currency when it spawns      | User  |
+| value                         | Shows the users current currency      | User  |
+| lb                            | Shows the leaderboard                 | User  |
+| roles                         | Shows the buyable roles               | User  |
+| buy \<num\>                   | Attempts to buy an event role         | User  |
+| force                         | Forces a candy proc                   | Admin |
+| chance \<num\>                | Changes the chance of a currency proc | Admin |
+| candy \<max/min/cap\> \<num\> | Changes basic currency config         | Admin |
+| channel \<name\>              | Add/Remove an active channel          | Admin |
+| pickcap \<num\>               | Changes successive pick limit         | Admin |
+| blacklist \<user\>            | Add/Remove a user to the blacklist    | Admin |
+| give \<user\>                 | Gives a user candy                    | Admin |
 
 ## Changelog
+
+#### v1.7
+
+- All config data has been moved to an external JSON
+- Added full set of admin commands to allow change of config while the bot is running (see Commands above)
+- Changed 'candy' command to 'value'
+- Bug Fixes
+- Code Cleanup
+	- All code has been rewritten to accommodate the config JSON
+	- All new code has been commented
+	- Less code duplication
+	- More helper functions
 
 #### v1.6
 
@@ -73,14 +92,6 @@ Users can collect the currency and use it to buy event discord roles.
 - CandyBot Release
 
 ## Roadmap
-
-#### v1.7
-
-- Convert config to JSON
-- Add admin commands
-	- Spawn (forces a candy spawn)
-	- Give (gives a user candy)
-	- Option (change bot options on the fly)
 
 #### v1.8
 
