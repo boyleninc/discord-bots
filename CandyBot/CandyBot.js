@@ -42,7 +42,7 @@
 // lb                           Shows the leaderboard                   user  //
 // roles                        Shows the buyable roles                 user  //
 // buy <num>                    Attempts to buy an event role           user  //
-// gift <user> <num>            Gift your currency to another user      user  //
+// gift <user> <num>            Gifts currency to another user          user  //
 // force                        Forces a currency proc                  admin //
 // chance <num>                 Changes the chance of a currency proc   admin //
 // candy <max/min/cap> <num>    Changes basic currency config           admin //
