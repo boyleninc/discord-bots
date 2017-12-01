@@ -47,7 +47,7 @@
 // channel <name>               Add/Remove an active channel            admin //
 // pickcap <num>                Changes successive pick limit           admin //
 // blacklist <user>             Add/Remove a user to the blacklist      admin //
-// give <user>                  Gives a user currency                   admin //
+// give <user> <num>                 Gives a user currency              admin //
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////

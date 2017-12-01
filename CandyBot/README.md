@@ -22,7 +22,7 @@ Users can collect the currency and use it to buy event discord roles.
 | channel \<name\> ![new](https://i.imgur.com/sBZ8aDu.png)              | Add/Remove an active channel          | Admin |
 | pickcap \<num\> ![new](https://i.imgur.com/sBZ8aDu.png)               | Changes successive pick limit         | Admin |
 | blacklist \<user\> ![new](https://i.imgur.com/sBZ8aDu.png)            | Add/Remove a user to the blacklist    | Admin |
-| give \<user\> ![new](https://i.imgur.com/sBZ8aDu.png)                 | Gives a user currency                 | Admin |
+| give \<user\> \<num\> ![new](https://i.imgur.com/sBZ8aDu.png)                 | Gives a user currency                 | Admin |
 
 ## Changelog
 
