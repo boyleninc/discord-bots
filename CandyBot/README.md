@@ -16,13 +16,13 @@ Users can collect the currency and use it to buy event discord roles.
 | lb                            | Shows the leaderboard                 | User  |
 | roles                         | Shows the buyable roles               | User  |
 | buy \<num\>                   | Attempts to buy an event role         | User  |
-| force ![new](https://i.imgur.com/sBZ8aDu.png)                         | Forces a candy proc                   | Admin |
+| force ![new](https://i.imgur.com/sBZ8aDu.png)                         | Forces a currency proc                | Admin |
 | chance \<num\> ![new](https://i.imgur.com/sBZ8aDu.png)                | Changes the chance of a currency proc | Admin |
 | candy \<max/min/cap\> \<num\> ![new](https://i.imgur.com/sBZ8aDu.png) | Changes basic currency config         | Admin |
 | channel \<name\> ![new](https://i.imgur.com/sBZ8aDu.png)              | Add/Remove an active channel          | Admin |
 | pickcap \<num\> ![new](https://i.imgur.com/sBZ8aDu.png)               | Changes successive pick limit         | Admin |
 | blacklist \<user\> ![new](https://i.imgur.com/sBZ8aDu.png)            | Add/Remove a user to the blacklist    | Admin |
-| give \<user\> ![new](https://i.imgur.com/sBZ8aDu.png)                 | Gives a user candy                    | Admin |
+| give \<user\> ![new](https://i.imgur.com/sBZ8aDu.png)                 | Gives a user currency                 | Admin |
 
 ## Changelog
 

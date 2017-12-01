@@ -41,13 +41,13 @@
 // lb                           Shows the leaderboard                   user  //
 // roles                        Shows the buyable roles                 user  //
 // buy <num>                    Attempts to buy an event role           user  //
-// force                        Forces a candy proc                     admin //
+// force                        Forces a currency proc                  admin //
 // chance <num>                 Changes the chance of a currency proc   admin //
 // candy <max/min/cap> <num>    Changes basic currency config           admin //
 // channel <name>               Add/Remove an active channel            admin //
 // pickcap <num>                Changes successive pick limit           admin //
 // blacklist <user>             Add/Remove a user to the blacklist      admin //
-// give <user>                  Gives a user candy                      admin //
+// give <user>                  Gives a user currency                   admin //
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////
