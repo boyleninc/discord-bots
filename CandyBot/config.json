@@ -23,7 +23,8 @@
     "channel",
     "pickcap",
     "blacklist",
-    "give"
+    "give",
+    "gift"
   ],
   "pickLimit": 3,
   "admin_roles": [

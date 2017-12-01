@@ -11,24 +11,34 @@ Users can collect the currency and use it to buy event discord roles.
 | Command                       | Usage                                 | Type  |
 |-------------------------------|---------------------------------------|-------|
 | help                          | Shows the CandyBot help menu          | User  |
+| info ![new](https://i.imgur.com/sBZ8aDu.png)                         | Shows the CandyBot info menu          | User  |
 | pick                          | Picks up currency when it spawns      | User  |
 | value                         | Shows the users current currency      | User  |
 | lb                            | Shows the leaderboard                 | User  |
 | roles                         | Shows the buyable roles               | User  |
 | buy \<num\>                   | Attempts to buy an event role         | User  |
+| gift \<user\> \<num\> ![new](https://i.imgur.com/sBZ8aDu.png)         | Gives a user currency                 | User |
 | force ![new](https://i.imgur.com/sBZ8aDu.png)                         | Forces a currency proc                | Admin |
 | chance \<num\> ![new](https://i.imgur.com/sBZ8aDu.png)                | Changes the chance of a currency proc | Admin |
 | candy \<max/min/cap\> \<num\> ![new](https://i.imgur.com/sBZ8aDu.png) | Changes basic currency config         | Admin |
 | channel \<name\> ![new](https://i.imgur.com/sBZ8aDu.png)              | Add/Remove an active channel          | Admin |
 | pickcap \<num\> ![new](https://i.imgur.com/sBZ8aDu.png)               | Changes successive pick limit         | Admin |
 | blacklist \<user\> ![new](https://i.imgur.com/sBZ8aDu.png)            | Add/Remove a user to the blacklist    | Admin |
-| give \<user\> \<num\> ![new](https://i.imgur.com/sBZ8aDu.png)                 | Gives a user currency                 | Admin |
+| give \<user\> \<num\> ![new](https://i.imgur.com/sBZ8aDu.png)         | Gives a user currency                 | Admin |
 
 ## Changelog
 
+#### v1.8
+
+- Added 'info' command which shows CandyBot info & stats
+	- Stats are automatically collected and stored in an external JSON (stats.json)
+- Added 'gift' command which allows users to transfer their currency
+- Bug Fixes
+- Code Cleanup
+
 #### v1.7
 
-- All config data has been moved to an external JSON
+- All config data has been moved to an external JSON (config.json)
 - Added full set of admin commands to allow change of config while the bot is running (see Commands above)
 - Changed 'candy' command to 'value'
 - Bug Fixes
@@ -93,19 +103,13 @@ Users can collect the currency and use it to buy event discord roles.
 
 ## Roadmap
 
-#### v1.8
+#### v1.9
 
 - Channel-Specific Spawn Rates
 - Ordered Roles
 	- Users must buy the roles in order
-- Add more user commands
-	- Info (shows bot info)
-		- Current info in 'help'
-		- Total candy that has dropped
-		- Uptime
-	- Gift (gift users candy)
 
-#### v1.9
+#### v2.0
 
 - Multicurrency Support
 - Bug Fixes

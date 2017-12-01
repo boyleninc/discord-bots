@@ -36,30 +36,33 @@
 // Commands:                                                                  //
 //                                                                            //
 // help                         Shows the CandyBot help menu            user  //
+// info                         Shows the CandyBot info menu            user  //
 // pick                         Picks up currency when it spawns        user  //
 // value                        Shows the users current currency        user  //
 // lb                           Shows the leaderboard                   user  //
 // roles                        Shows the buyable roles                 user  //
 // buy <num>                    Attempts to buy an event role           user  //
+// gift <user> <num>            Gift your currency to another user      user  //
 // force                        Forces a currency proc                  admin //
 // chance <num>                 Changes the chance of a currency proc   admin //
 // candy <max/min/cap> <num>    Changes basic currency config           admin //
 // channel <name>               Add/Remove an active channel            admin //
 // pickcap <num>                Changes successive pick limit           admin //
 // blacklist <user>             Add/Remove a user to the blacklist      admin //
-// give <user> <num>                 Gives a user currency              admin //
+// give <user> <num>            Gives a user currency                   admin //
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////
 // Code - DO NOT EDIT //
 ////////////////////////
 
-const version           = 1.7                       //CandyBot Version
+const version           = 1.8                       //CandyBot Version
 const Discord           = require("discord.js")     //Discord API
 const fs                = require("fs")             //File System
 const client            = new Discord.Client()      //CandyBot Instance
 var data                = require("./data.json")    //CandyBot Data
 var config              = require("./config.json")  //CandyBot Config
+var stats               = require("./stats.json")   //CandyBot Stats
 var readyForPicking     = []                        //Proccable channels
 var pickid              = []                        //Last currency proc message
 var lastSent            = []                        //Last user currency proc
@@ -132,9 +135,11 @@ client.on("message", (m) =>        //When a message is sent
         case ("pick"): pick(m); break        //Pick
         case ("value"): value(m); break      //Value
         case ("help"): help(m); break        //Help
+        case ("info"): info(m); break        //Info
         case ("roles"): roles(m); break      //Roles
         case ("lb"): lb(m); break            //Leaderboard
         case ("buy"): buy(m, args); break    //Buy
+        case ("gift"): gift(m, args); break  //Gift
     }
     
     if (!userHasRole(m.member.roles, config.admin_roles)){cleanup(m, args); return}     //Exit if the user does not have an admin role
@@ -164,11 +169,14 @@ function pick(m)    //Handles a pick command
 {
     if (arrayFind(readyForPicking, m.channel.name) && !(lastPick[0] == m.author.id && lastPick[1] >= config.pickLimit))    //If there has been currency dropped and user hasnt hit the pick limit
     {
-        const amount = getRandomInt(config.currMin, config.currMax)                              //Create a random amount of currency
-        m.channel.messages.find("id", arrayFind(pickid, m.channel.name)).delete()    //Delete the currency drop message
-        m.channel.send(m.author + " picked up __**" + amount + "**__ " + config.emoji + " !")     //Send the picked message
-        updateCandyData(m.author.id, amount)                                              //Update the users currency value
-        arraySet(readyForPicking, m.channel.name, false)                             //Set the bot to start dropping currency
+        const amount = getRandomInt(config.currMin, config.currMax)                             //Create a random amount of currency
+        m.channel.messages.find("id", arrayFind(pickid, m.channel.name)).delete()               //Delete the currency drop message
+        m.channel.send(m.author + " picked up __**" + amount + "**__ " + config.emoji + " !")   //Send the picked message
+        updateCandyData(m.author.id, amount)                                                    //Update the users currency value
+        saveData(0)                                                                             //Save JSON data
+        stats["total"] = stats["total"] + amount                                                //Update total candy dropped stats
+        saveData(2)                                                                             //Save JSON data
+        arraySet(readyForPicking, m.channel.name, false)                                        //Set the bot to start dropping currency
         
         if(lastPick[0] == m.author.id)          //If the same user picked again
         {
@@ -197,13 +205,18 @@ function value(m)    //Handles a value command
 
 function help(m)    //Handles a help command
 {
+    m.channel.send(config.emoji + " **__CandyBot Help!__** " + config.emoji + "\n```" + config.cmdPrefix + "help                 Shows this help menu\n" + config.cmdPrefix + "info                 Shows CandoyBot information\n" + config.cmdPrefix + "pick                 Picks up " + config.currency + "\n" + config.cmdPrefix + "value                Shows your current " + config.currency + "\n" + config.cmdPrefix + "lb                   Shows the leaderboard\n"  + config.cmdPrefix + "roles                Shows the buyable roles (inc. role numbers & cost)\n" + config.cmdPrefix + "buy <num>            Buys a " + config.serverName + " Event Role\n"  + config.cmdPrefix + "gift <user> <num>    Gift " + config.currency + " to someone else```")
+}
+
+function info(m)    //Handles an info command
+{
     channelsString = ""
     for (var c of config.activeChannels)    //Regenerate channel string
     {
         channelsString = channelsString + client.channels.find("name",c).toString() + " "
     }
     
-    m.channel.send(config.emoji + " **__CandyBot Help!__** " + config.emoji + "\n```" + config.cmdPrefix + "help        Shows this help menu\n" + config.cmdPrefix + "pick        Picks up " + config.currency + "\n" + config.cmdPrefix + "value       Shows your current " + config.currency + "\n" + config.cmdPrefix + "lb          Shows the leaderboard\n"  + config.cmdPrefix + "roles       Shows the buyable roles (inc. role numbers & cost)\n" + config.cmdPrefix + "buy <num>   Buys a " + config.serverName + " Event Role```**CandyBot v" + version + "** active in: " + channelsString + "\n[_Made for " + config.serverName + "_] [_Created by " + superString + "_]")
+    m.channel.send(config.emoji + " **__CandyBot Info & Stats!__** " + config.emoji + "\n**Version:** " + version + "\n**Active Channels:** " + channelsString + "\n**Server:** " + config.serverName  + "\n**Drop chance:** " + config.chance + "\n**Drop Amount:** " + config.currMin + "-" + config.currMin + "\n**Cap:** " + config.currCap + "\n**Total " + config.currency + " Dropped:** " + stats.total + "\n**Uptime:** " + Math.floor(process.uptime()) + " seconds\n\n**CandyBot Created By " + superString + "**")
 }
 
 function roles(m)   //Handles a roles command
@@ -262,9 +275,9 @@ function buy(m, args)    //Handles a buy command
     }
     
     updateCandyData(name, -roleSelection[1])         //Remove currency
+    saveData(0)                                      //Save JSON data
     m.member.addRole(role, "Bot")       //Give the user the role
     m.channel.send(m.author + " You have bought the **" + roleSelection[0] + "** Role! Keep trying to earn " + config.emoji + "!")
-    saveData()  //Save user currency data
 }
 
 function chance(m, args)    //Handles a chance command
@@ -276,7 +289,7 @@ function chance(m, args)    //Handles a chance command
     config["chance"] = procChance/100     //Set the proc chance
     m.channel.send(config.emoji + " drop chance in " + m.channel + " has been changed to **__" + procChance + "%__** by " + m.author + "!")
     
-    saveData(1) //Save the JSON data
+    saveData(1) //Save JSON data
 }
 
 function candy(m, args)    //Handles a candy command
@@ -302,7 +315,7 @@ function candy(m, args)    //Handles a candy command
             break
     }
     
-    saveData(1) //Save the JSON data
+    saveData(1) //Save JSON data
 }
 
 function channel(m, args)    //Handles a channel command
@@ -325,7 +338,7 @@ function channel(m, args)    //Handles a channel command
         ch.send("CandyBot has been **disabled** in this channel by " + m.author + "!")
     }
     
-    saveData(1) //Save the JSON data
+    saveData(1) //Save JSON data
 }
 
 function pickcap(m, args)    //Handles a pickcap command
@@ -337,7 +350,7 @@ function pickcap(m, args)    //Handles a pickcap command
     config["pickLimit"] = newCap    //Set the new pick limit
     m.channel.send(config.emoji + " pick limit has been changed to **__" + newCap + "__** by " + m.author + "!")
     
-    saveData(1) //Save the JSON data
+    saveData(1) //Save JSON data
 }
 
 function blacklist(m, args)    //Handles a blacklist command
@@ -358,7 +371,33 @@ function blacklist(m, args)    //Handles a blacklist command
         m.channel.send(user + " has been **removed** from the CandyBot blacklist by " + m.author + "!")
     }
     
-    saveData(1) //Save the JSON data
+    saveData(1) //Save JSON data
+}
+
+function gift(m, args)
+{
+    const u = args[1]   //The user
+    const value = Number(args[2])   //The amount of currency to transfer
+    const user = client.users.get(u.substr(2).slice(0, -1)) //Search for the user
+    
+    if (isNaN(value) || !user || value < 1) {return}     //Exit if invalid input
+    
+    if (!data.hasOwnProperty(m.author.id))    //If the user has no currency
+    {
+        m.channel.send(m.author + " You dont have any " + config.emoji + "!")
+        return
+    }
+    
+    if (data[m.author.id] < value)    //If the user does not have enough currency
+    {
+        m.channel.send(m.author + " You dont have enough " + config.emoji + "!")
+        return
+    }
+    
+    updateCandyData(user.id, value)             //Update the recipients currency value
+    updateCandyData(m.author.id, -value)        //Update the senders currency value
+    saveData(0)                                 //Save JSON data
+    m.channel.send(user + " You have been given **__" + value + "__** " + config.emoji + " by " + m.author + "! (You now have **__" + data[user.id] + "__** " + config.emoji + ")")
 }
 
 function give(m, args)    //Handles a give command
@@ -370,9 +409,8 @@ function give(m, args)    //Handles a give command
     if (isNaN(value) || !user) {return}     //Exit if invalid input
     
     updateCandyData(user.id, value)         //Update the users currency value
+    saveData(0)                             //Save JSON data
     m.channel.send(user + " You have been given **__" + value + "__** " + config.emoji + " by " + m.author + "! (You now have **__" + data[user.id] + "__** " + config.emoji + ")")
-    
-    saveData(0) //Save the JSON data
 }
 
 function lb(m)    //Handles a lb command
@@ -423,8 +461,6 @@ function updateCandyData(name, amount)    //Updates JSON data
     {
         data[name] = amount    //Set users currency level
     }
-    
-    saveData(0)    //Save JSON data
 }
 
 function sort()    //Sorts JSON data
@@ -475,15 +511,18 @@ function idtoname(str)    //Converts a user ID to a username
 
 function saveData(file)    //Save JSON data
 {
-    if (file == 0)  //Save currency data
+    switch(file)
     {
-        fs.writeFile("data.json", JSON.stringify(data, null, 2), 'utf8', (error) => { if (error) {console.log("Something Went Wrong!")} })
+        case(0): //Save currency data
+            fs.writeFile("data.json", JSON.stringify(data, null, 2), 'utf8', (error) => { if (error) {console.log("Something Went Wrong!")} })
+            break
+        case(1): //Save config data
+            fs.writeFile("config.json", JSON.stringify(config, null, 2), 'utf8', (error) => { if (error) {console.log("Something Went Wrong!")} })
+            break
+        case(2): //Save stats data
+            fs.writeFile("stats.json", JSON.stringify(stats, null, 2), 'utf8', (error) => { if (error) {console.log("Something Went Wrong!")} })
+            break
     }
-    else            //Save config data
-    {
-        fs.writeFile("config.json", JSON.stringify(config, null, 2), 'utf8', (error) => { if (error) {console.log("Something Went Wrong!")} })
-    }
-    
 }
 
 function getRandomInt(min, max)    //Return random integer
