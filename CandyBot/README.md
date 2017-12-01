@@ -17,7 +17,7 @@ Users can collect the currency and use it to buy event discord roles.
 | lb                            | Shows the leaderboard                 | User  |
 | roles                         | Shows the buyable roles               | User  |
 | buy \<num\>                   | Attempts to buy an event role         | User  |
-| gift \<user\> \<num\> ![new](https://i.imgur.com/sBZ8aDu.png)         | GGifts currency to another user                 | User |
+| gift \<user\> \<num\> ![new](https://i.imgur.com/sBZ8aDu.png)         | Gifts currency to another user                 | User |
 | force ![new](https://i.imgur.com/sBZ8aDu.png)                         | Forces a currency proc                | Admin |
 | chance \<num\> ![new](https://i.imgur.com/sBZ8aDu.png)                | Changes the chance of a currency proc | Admin |
 | candy \<max/min/cap\> \<num\> ![new](https://i.imgur.com/sBZ8aDu.png) | Changes basic currency config         | Admin |
