@@ -11,8 +11,8 @@
     "Role 2": 20
   },
   "activeChannels": [
-    "Channel 1",
-    "Channel 2"
+    "Channel-1",
+    "Channel-2"
   ],
   "cleanCmds": [
     "pick",
