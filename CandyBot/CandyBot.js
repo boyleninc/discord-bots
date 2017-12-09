@@ -216,7 +216,7 @@ function info(m)    //Handles an info command
         channelsString = channelsString + client.channels.find("name",c).toString() + " "
     }
     
-    m.channel.send(config.emoji + " **__CandyBot Info & Stats!__** " + config.emoji + "\n**Version:** " + version + "\n**Active Channels:** " + channelsString + "\n**Server:** " + config.serverName  + "\n**Drop chance:** " + config.chance + "\n**Drop Amount:** " + config.currMin + "-" + config.currMin + "\n**Cap:** " + config.currCap + "\n**Total " + config.currency + " Dropped:** " + stats.total + "\n**Uptime:** " + Math.floor(process.uptime()) + " seconds\n\n**CandyBot Created By " + superString + "**")
+    m.channel.send(config.emoji + " **__CandyBot Info & Stats!__** " + config.emoji + "\n**Version:** " + version + "\n**Active Channels:** " + channelsString + "\n**Server:** " + config.serverName  + "\n**Drop chance:** " + (config.chance*100) + "%\n**Drop Amount:** " + config.currMin + "-" + config.currMax + "\n**Cap:** " + config.currCap + "\n**Total " + config.currency + " Dropped:** " + stats.total + "\n**Uptime:** " + Math.floor(process.uptime()) + " seconds\n\n**CandyBot Created By " + superString + "**")
 }
 
 function roles(m)   //Handles a roles command
@@ -287,7 +287,7 @@ function chance(m, args)    //Handles a chance command
     if (isNaN(procChance) || procChance > 100 || procChance < 0) {return}     //Exit if invalid input
     
     config["chance"] = procChance/100     //Set the proc chance
-    m.channel.send(config.emoji + " drop chance in " + m.channel + " has been changed to **__" + procChance + "%__** by " + m.author + "!")
+    m.channel.send(config.emoji + " drop chance in **" + config.serverName + "** has been changed to **__" + procChance + "%__** by " + m.author + "!")
     
     saveData(1) //Save JSON data
 }
@@ -356,7 +356,7 @@ function pickcap(m, args)    //Handles a pickcap command
 function blacklist(m, args)    //Handles a blacklist command
 {
     const value = args[1]  //The user
-    const user = client.users.get(value.substr(2).slice(0, -1)) //Search for the user
+    const user = client.users.get(value.replace(/<|>|@|!/g,"")) //Search for the user
     
     if (!user) {return}     //Exit if invalid input
     
@@ -378,7 +378,7 @@ function gift(m, args)
 {
     const u = args[1]   //The user
     const value = Number(args[2])   //The amount of currency to transfer
-    const user = client.users.get(u.substr(2).slice(0, -1)) //Search for the user
+    const user = client.users.get(u.replace(/<|>|@|!/g,"")) //Search for the user
     
     if (isNaN(value) || !user || value < 1) {return}     //Exit if invalid input
     
@@ -404,7 +404,7 @@ function give(m, args)    //Handles a give command
 {
     const u = args[1]   //The user
     const value = Number(args[2])   //The amount of currency to give
-    const user = client.users.get(u.substr(2).slice(0, -1)) //Search for the user
+    const user = client.users.get(u.replace(/<|>|@|!/g,"")) //Search for the user
     
     if (isNaN(value) || !user) {return}     //Exit if invalid input
     
