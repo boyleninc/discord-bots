@@ -108,6 +108,7 @@ Users can collect the currency and use it to buy event discord roles.
 - Channel-Specific Spawn Rates
 - Ordered Roles
 	- Users must buy the roles in order
+- Custom Currency Proc Message
 
 #### v2.0
 
