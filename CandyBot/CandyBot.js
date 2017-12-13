@@ -216,7 +216,7 @@ function info(m)    //Handles an info command
         channelsString = channelsString + client.channels.find("name",c).toString() + " "
     }
     
-    m.channel.send(config.emoji + " **__CandyBot Info & Stats!__** " + config.emoji + "\n**Version:** " + version + "\n**Active Channels:** " + channelsString + "\n**Server:** " + config.serverName  + "\n**Drop chance:** " + (config.chance*100) + "%\n**Drop Amount:** " + config.currMin + "-" + config.currMax + "\n**Cap:** " + config.currCap + "\n**Total " + config.currency + " Dropped:** " + stats.total + "\n**Uptime:** " + Math.floor(process.uptime()) + " seconds\n\n**CandyBot Created By " + superString + "**")
+    m.channel.send(config.emoji + " **__CandyBot Info & Stats!__** " + config.emoji + "\n**Version:** " + version + "\n**Active Channels:** " + channelsString + "\n**Server:** " + config.serverName  + "\n**Drop chance:** " + (config.chance*100) + "%\n**Drop Amount:** " + config.currMin + "-" + config.currMax + "\n**Cap:** " + config.currCap + "\n**Total " + config.currency + " Dropped:** " + stats.total + "\n**Total Roles Bought:** " + stats.roles + "\n**Uptime:** " + Math.floor(process.uptime()) + " seconds\n\n**CandyBot Created By " + superString + "**")
 }
 
 function roles(m)   //Handles a roles command
@@ -276,7 +276,9 @@ function buy(m, args)    //Handles a buy command
     
     updateCandyData(name, -roleSelection[1])         //Remove currency
     saveData(0)                                      //Save JSON data
-    m.member.addRole(role, "Bot")       //Give the user the role
+    stats["roles"] = stats["roles"] + 1              //Update total bought roles stats	
+    saveData(2)                                      //Save JSON data
+    m.member.addRole(role, "CandyBot")       //Give the user the role
     m.channel.send(m.author + " You have bought the **" + roleSelection[0] + "** Role! Keep trying to earn " + config.emoji + "!")
 }
 
