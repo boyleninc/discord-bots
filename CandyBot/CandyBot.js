@@ -205,7 +205,7 @@ function value(m)    //Handles a value command
 
 function help(m)    //Handles a help command
 {
-    m.channel.send(config.emoji + " **__CandyBot Help!__** " + config.emoji + "\n```" + config.cmdPrefix + "help                 Shows this help menu\n" + config.cmdPrefix + "info                 Shows CandoyBot information\n" + config.cmdPrefix + "pick                 Picks up " + config.currency + "\n" + config.cmdPrefix + "value                Shows your current " + config.currency + "\n" + config.cmdPrefix + "lb                   Shows the leaderboard\n"  + config.cmdPrefix + "roles                Shows the buyable roles (inc. role numbers & cost)\n" + config.cmdPrefix + "buy <num>            Buys a " + config.serverName + " Event Role\n"  + config.cmdPrefix + "gift <user> <num>    Gift " + config.currency + " to someone else```")
+    m.channel.send(config.emoji + " **__CandyBot Help!__** " + config.emoji + "\n```" + config.cmdPrefix + "help                 Shows this help menu\n" + config.cmdPrefix + "info                 Shows CandyBot information\n" + config.cmdPrefix + "pick                 Picks up " + config.currency + "\n" + config.cmdPrefix + "value                Shows your current " + config.currency + "\n" + config.cmdPrefix + "lb                   Shows the leaderboard\n"  + config.cmdPrefix + "roles                Shows the buyable roles (inc. role numbers & cost)\n" + config.cmdPrefix + "buy <num>            Buys a " + config.serverName + " Event Role\n"  + config.cmdPrefix + "gift <user> <num>    Gift " + config.currency + " to someone else```")
 }
 
 function info(m)    //Handles an info command
