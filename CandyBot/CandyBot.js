@@ -309,7 +309,7 @@ function candy(m, args)    //Handles a candy command
             break
         case ("max"):
             config["currMax"] = value     //Set the maximum currency drop
-            m.channel.send(config.emoji + " minimum has been changed to **__" + value + "__** by " + m.author + "!")
+            m.channel.send(config.emoji + " maximum has been changed to **__" + value + "__** by " + m.author + "!")
             break
         case ("cap"):
             config["currCap"] = value     //Set the currency cap
