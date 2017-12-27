@@ -103,12 +103,19 @@ Users can collect the currency and use it to buy event discord roles.
 
 ## Roadmap
 
+### Major
+
+- Multicurrency
+
+### Minor
+
 - Channel-Specific Spawn Rates
 - Ordered Roles
 	- Users must buy the roles in order
 - Custom Currency Proc Message
-- Multicurrency Support
-- Bug Fixes
-	- Leaderboard fix when noone has candy
-	- Role list fix when only one role
+
+### Bugfixes
+
+- Leaderboard fix when noone has candy
+- Role list fix when only one role
 - Better Error Checking
