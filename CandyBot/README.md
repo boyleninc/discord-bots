@@ -140,6 +140,7 @@ Users can collect the currency and use it to buy event discord roles.
 
 ### Bugfixes
 
+- Various Bugfixes from live
 - Leaderboard fix when noone has candy
 	- `.lb <page number>`
 	- Always show current user
@@ -148,6 +149,7 @@ Users can collect the currency and use it to buy event discord roles.
 - Better Error Checking
 - Make non existant JSON data message the same as 0 currency gained message
 - Change "given" -> "Gifted" (`.gift` message)
+- Change "minimum" -> "maximum" (`.candy max` message)
 - Remove the word "Total" from `.info`
 - Reconnect fix
 	- Array data can be duplicated if the bot loses connection but successfully reconnects
